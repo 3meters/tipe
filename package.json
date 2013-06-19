@@ -1,0 +1,26 @@
+{
+  "name": "tipe",
+  "version": "1.1.1",
+  "description": "Simple, fast, extensible JavaScript type checker",
+  "homepage": "https://github.com/3meters/tipe",
+  "keywords": [
+    "type",
+    "typeof",
+    "typecheck",
+    "check"
+  ],
+  "author": {
+    "name": "George Snelling",
+    "email": "george@3meters.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/3meters/tipe.git"
+  },
+  "main": "tipe.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "license": "MIT",
+  "readmeFilename": Readme.md
+}

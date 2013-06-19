@@ -2,14 +2,18 @@
  *  tipe.js
  *
  *  Simple javascript typeof replacement with sane handling
- *  of semi-primitives with easily configurable list of known
- *  classes. Provides isString(v), isNumber(v), for all tipes
- *  as convenience methods.
+ *  of semi-primitives and easily configurable list of known
+ *  constructors. Provides isString(v), isNumber(v), etc for
+ *  all tipes as convenience methods.
+ *
+ *  Copyright (c) 2013 3meters
+ *  MIT Licensed
  */
 
 
 // Main
 function tipe(v) {
+
   var result, className
 
   // Give typeof first crack
@@ -17,7 +21,7 @@ function tipe(v) {
   if (result) return result
 
   // Optimized checkers
-  if (v === null) return 'null'
+  if (null === v) return 'null'
   if (Array.isArray(v)) return 'array'
 
   // Check for custom classes
@@ -78,4 +82,5 @@ function addIsMethod(tipeName) {
 })()
 
 
+// Export
 module.exports = tipe
