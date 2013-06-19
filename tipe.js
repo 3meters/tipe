@@ -3,7 +3,7 @@
  *
  *  Simple javascript typeof replacement with sane handling
  *  of semi-primitives and easily configurable list of known
- *  constructors. Provides isString(v), isNumber(v), etc for
+ *  constructors. Provides isString(v), isNumber(v), etc. for
  *  all tipes as convenience methods.
  *
  *  Copyright (c) 2013 3meters
