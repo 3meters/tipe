@@ -20,7 +20,7 @@ log(tipe([]))   // 'array'
 
   is-methods, e.g. isObject, isArray are provided as sugar.
 
-```
+```js
 log(tipe.isBoolean(false))      // true
 log(tipe.isError(new Error()))  // true
 ```
