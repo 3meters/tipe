@@ -10,28 +10,39 @@
 
 // Main
 function tipe(v) {
-  var typeofSane, className
+  var result, className
 
   // Give typeof first crack
-  typeofSane = tipeMap[typeof v]
-  if (typeofSane) return typeofSane
+  result = tipeMap[typeof(v)]
+  if (result) return result
 
-  // See what Object.toString thinks: it returns '[object Constructor]'
-  className = Object.prototype.toString.call(v)
-  className = className.slice(0, className.length - 1).slice(8)
+  // Optimized checkers
+  if (v === null) return 'null'
+  if (Array.isArray(v)) return 'array'
 
-  return tipeMap[className]
-    || (v ? 'object' : 'null')
+  // Check for custom classes
+  if (v.constructor) {
+    result = tipeMap[v.constructor.name]
+    if (result) return result
+  }
+
+  // We have some kind of object, but what kind?
+  className = Object.prototype.toString.call(v).slice(8, -1)
+
+  return tipeMap[className] || 'object'
 }
 
 
 // Map of value types to their tipes
 var tipeMap = {
   'undefined': 'undefined',
-  'number': 'number',
   'boolean': 'boolean',
+  'number': 'number',
   'string': 'string',
   'function': 'function',
+  'Arguments': 'arguments',
+  'Number': 'number',
+  'String': 'string',
   'RegExp': 'regexp',
   'Array': 'array',
   'Date': 'date',
@@ -39,8 +50,8 @@ var tipeMap = {
 }
 
 
-// Add a user-specfied class to the tipeMap.
-// Class constructor must implement toString()
+// Add a user-specfied tipe to the tipeMap
+// The className must be the name of the constructor
 tipe.add = function(className, tipeName) {
   if ('Object' === className || tipeMap[className]) return // ddt
   tipeMap[className] = tipeName
@@ -50,17 +61,21 @@ tipe.add = function(className, tipeName) {
 
 // Sweeten with tipe.isString(v), tipe.isPoodle(v), etc.
 function addIsMethod(tipeName) {
-  var properCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1)
-  tipe['is' + properCaseTipeName] = function(v) {
+  var upperCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1)
+  tipe['is' + upperCaseTipeName] = function(v) {
     return tipe(v) === tipeName
   }
 }
 
 
-// Add sugar
-for (var key in tipeMap) {
-  addIsMethod(tipeMap[key])
-}
+// Add sugar on require
+(function() {
+  for (var key in tipeMap) {
+    addIsMethod(tipeMap[key])
+  }
+  addIsMethod('null')
+  addIsMethod('object')
+})()
 
 
 module.exports = tipe
