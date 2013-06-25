@@ -27,6 +27,21 @@ assert('function' === tipe(Error))
 assert('error' === tipe(new Error()))
 assert('error' === tipe(new SyntaxError()))
 
+// Truthy
+assert(tipe.isTruthy(1))
+assert(tipe.isTruthy(45.6))
+assert(tipe.isTruthy('1'))
+assert(tipe.isTruthy('yes'))
+assert(tipe.isTruthy('true'))
+assert(tipe.isTruthy('TrUe'))
+assert(!tipe.isTruthy())
+assert(!tipe.isTruthy(null))
+assert(!tipe.isTruthy(0))
+assert(!tipe.isTruthy(-1))  // not like javascript
+assert(!tipe.isTruthy('0'))
+assert(!tipe.isTruthy('-1'))
+assert(!tipe.isTruthy('foo')) // not like javascript
+
 // Sugar
 assert(tipe.isUndefined())
 assert(tipe.isUndefined(undef))

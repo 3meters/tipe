@@ -72,13 +72,27 @@ function addIsMethod(tipeName) {
 }
 
 
-// Add sugar on require
+// True for positive numbers, strings castable to positive numbers,
+// or the strings 'true' or 'yes'.  Handy for booleans set from
+// query strings
+function isTruthy(v) {
+  if ('number' === typeof(v)) return (v > 0)  // negative numbers are false
+  if ('string' !== typeof(v)) return (v)      // fall back to javascript
+  v = v.toLowerCase()
+  if ('true' === v || 'yes' === v) return true
+  if (parseInt(v) > 0) return true
+  return false
+}
+
+
+// Add submethods on require
 (function() {
   for (var key in tipeMap) {
     addIsMethod(tipeMap[key])
   }
   addIsMethod('null')
   addIsMethod('object')
+  tipe.isTruthy = isTruthy
 })()
 
 

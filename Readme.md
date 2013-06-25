@@ -36,6 +36,16 @@ log(tipe(fido))         // 'dog'
 log(tipe.isDog(fido))   // true
 ```
 
+  Provides a conservative isTruthy method for setting booleans from query strings
+
+```js
+tipe.isTruthy(1)        // true
+tipe.isTruthy(-1)       // false
+tipe.isTruthy('yes')    // true
+tipe.isTruthy('true')   // true
+tipe.isTruthy('foo')    // false
+```
+
 ## Copyright
   Copyright (c) 2013 3meters.  All rights reserverd.
 
