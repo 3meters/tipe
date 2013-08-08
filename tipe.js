@@ -56,7 +56,14 @@ var tipeMap = {
 
 // Convience test for scalars
 tipe.isScalar = function(v) {
-  return (!(v instanceof Object))
+  return (
+    tipe.isString(v)
+    || tipe.isNumber(v)
+    || tipe.isBoolean(v)
+    || tipe.isNull(v)
+    || tipe.isUndefined(v)
+    || !(v instanceof Object)
+  )
 }
 
 // Add a user-specfied tipe to the tipeMap
