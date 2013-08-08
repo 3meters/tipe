@@ -57,6 +57,18 @@ assert(tipe.isArray([]))
 assert(tipe.isObject({}))
 assert.throws(function() {tipe.bogusMethod()})
 
+// Scalar
+assert(tipe.isScalar(1))
+assert(tipe.isScalar('hi'))
+assert(tipe.isScalar(true))
+assert(tipe.isScalar(false))
+assert(tipe.isScalar(null))
+assert(tipe.isScalar())
+assert(!tipe.isScalar({}))
+assert(!tipe.isScalar([]))
+assert(!tipe.isScalar(function(){}))
+
+
 // User-defined tipes
 function Dog() {}
 var rover = new Dog()

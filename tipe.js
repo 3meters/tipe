@@ -54,6 +54,11 @@ var tipeMap = {
 }
 
 
+// Convience test for scalars
+tipe.isScalar = function(v) {
+  return (!(v instanceof Object))
+}
+
 // Add a user-specfied tipe to the tipeMap
 // The className must be the name of the constructor
 tipe.add = function(className, tipeName) {
