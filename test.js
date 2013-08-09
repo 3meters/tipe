@@ -45,6 +45,10 @@ assert(!tipe.isTruthy('foo')) // not like javascript
 // Sugar
 assert(tipe.isUndefined())
 assert(tipe.isUndefined(undef))
+assert(tipe.isDefined(1))
+assert(tipe.isDefined(null))
+assert(!tipe.isDefined())
+assert(!tipe.isDefined({}.foo))
 assert(tipe.isNull(null))
 assert(!tipe.isNull(undef))
 assert(tipe.isBoolean(true))

@@ -66,6 +66,11 @@ tipe.isScalar = function(v) {
   )
 }
 
+// Sugar
+tipe.isDefined = function(v) {
+  return !tipe.isUndefined(v)
+}
+
 // Add a user-specfied tipe to the tipeMap
 // The className must be the name of the constructor
 tipe.add = function(className, tipeName) {
