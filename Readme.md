@@ -1,50 +1,75 @@
 #tipe
 
-  Simple, fast, sane javascript type checker.
+  Simple, fast, extensible javascript type checker.
 
-  Tipe is a replacement for typeof that returns a single lower-case string value for all types.
+  If you want a popular, hardended type-checker you should probably look at is:  https://github.com/enricomarino/is
+
+  You should not install this module.  It is not worth the weight of a dependency.  You should write your own.  Feel free to copy-paste any source find useful.
+
+  If for some reason you want a type-checking module, and you don't like is, be assured that we dogfood the master branch in production.
+
+  Tipe provides two tiny features that is does not: you can add custom types for any constructor, and the base method, tipe(foo) always returns an accurate string for the type of foo, even if foo is of type "poodle".  It lacks many features that is provides, including equality tests and mathematical comparitors.
 
 ## Install with nodejs
 
     npm install tipe
 
-## Use
+## Basic use
 
 ```js
 var tipe = require('tipe')
-var log = console.log
-log(tipe({}))   // 'object'
-log(tipe([]))   // 'array'
+tipe()              // 'undefined'
+tipe(null)          // 'null'
+tipe(false)         // 'boolean'
+tipe(1)             // 'number'
+tipe({})            // 'object'
+tipe([])            // 'array'
+tipe(new Error())   // 'error'
 ...
 ```
 
-  is-methods, e.g. isObject, isArray are provided as sugar.
-
+## Methods
+Each type has a base method that returns a boolean
 ```js
-log(tipe.isBoolean(false))      // true
-log(tipe.isError(new Error()))  // true
+tipe.boolean(false)      // true
+tipe.error(new Error())  // true
 ```
+etc...
 
-  You can add your own custom tipes for constructors:
+
+## Extensible Types
+Add your own custom tipes for constructors:
 
 ```js
 function Dog(){}
 var fido = new Dog()
-log(tipe(fido))         // 'object'
+tipe(fido)              // 'object'
 tipe.add('Dog', 'dog')
-log(tipe(fido))         // 'dog'
-log(tipe.isDog(fido))   // true
+tipe(fido)              // 'dog'
+tipe.dog(fido)          // true
 ```
 
-  Provides a conservative isTruthy method for setting booleans from query strings
+## Truthy
+Truthy aims to descern truth from messy query strings
 
 ```js
-tipe.isTruthy(1)        // true
-tipe.isTruthy(-1)       // false
-tipe.isTruthy('yes')    // true
-tipe.isTruthy('true')   // true
-tipe.isTruthy('foo')    // false
+tipe.truthy(1)        // true
+tipe.truthy(-1)       // false  (true in javascript)
+tipe.truthy('1')      // true
+tipe.truthy('0')      // false (true in javascript)
+tipe.truthy('-5')     // false (true in javascript)
+tipe.truthy('yes')    // true
+tipe.truthy('true')   // true
+tipe.truthy('foo')    // false (true in javascript)
 ```
+
+## Scalar
+Scalar distinguishes between values that will be passed-by-value from those that will be passed-by-reference
+```js
+tipe.scalar(1)        // true
+tipe.scalar({})       // false
+tipe.scalar([])       // false
+
 
 ## Copyright
   Copyright (c) 2013 3meters.  All rights reserverd.
