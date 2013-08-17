@@ -114,6 +114,7 @@ function addMethod(tipeName) {
   }
   addMethod('null')
   addMethod('object')
+  tipe.args = tipe.isArguments
 })()
 
 

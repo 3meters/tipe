@@ -59,6 +59,7 @@ assert(tipe.regexp(/./))
 assert(tipe.error(new Error()))
 assert(tipe.array([]))
 assert(tipe.object({}))
+assert(tipe.isArguments((function() {return arguments})()))
 assert.throws(function() {tipe.bogusMethod()})
 
 // Scalar
