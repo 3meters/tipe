@@ -69,6 +69,7 @@ Scalar distinguishes between values that will be passed-by-value from those that
 tipe.scalar(1)        // true
 tipe.scalar({})       // false
 tipe.scalar([])       // false
+```
 
 
 ## Copyright
