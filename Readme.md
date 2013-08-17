@@ -4,11 +4,11 @@
 
   If you want a popular, hardended type-checker you should probably look at is:  https://github.com/enricomarino/is
 
-  You should not install this module.  It is not worth the weight of a dependency.  You should write your own.  Feel free to copy-paste any source find useful.
-
-  If for some reason you want a type-checking module, and you don't like is, be assured that we dogfood the master branch in production.
+  You probably should not use this module.  It is not worth the weight of a dependency.  You should write your own.  Feel free to copy-paste any source find useful.
 
   Tipe provides two tiny features that is does not: you can add custom types for any constructor, and the base method, tipe(foo) always returns an accurate string for the type of foo, even if foo is of type "poodle".  It lacks many features that is provides, including equality tests and mathematical comparitors.
+
+  If for some reason you like tipe and want to accept the dependency, be assured that we dogfood the master branch in production and endevor to respond to all problems quickly.
 
 ## Install with nodejs
 
