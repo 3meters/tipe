@@ -49,28 +49,6 @@ tipe(fido)              // 'dog'
 tipe.dog(fido)          // true
 ```
 
-## Truthy
-Truthy aims to descern truth from messy query strings
-
-```js
-tipe.truthy(1)        // true
-tipe.truthy(-1)       // false  (true in javascript)
-tipe.truthy('1')      // true
-tipe.truthy('0')      // false (true in javascript)
-tipe.truthy('-5')     // false (true in javascript)
-tipe.truthy('yes')    // true
-tipe.truthy('true')   // true
-tipe.truthy('foo')    // false (true in javascript)
-```
-
-## Scalar
-Scalar distinguishes between values that will be passed-by-value from those that will be passed-by-reference
-```js
-tipe.scalar(1)        // true
-tipe.scalar({})       // false
-tipe.scalar([])       // false
-```
-
 
 ## Copyright
   Copyright (c) 2013 3meters.  All rights reserverd.
