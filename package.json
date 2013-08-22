@@ -17,6 +17,10 @@
     "type": "git",
     "url": "git://github.com/3meters/tipe.git"
   },
+  "devDependencies": {
+    "is": "*",
+    "bench": "*"
+  },
   "main": "tipe.js",
   "scripts": {
     "test": "node test.js"
