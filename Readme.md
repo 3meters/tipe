@@ -34,7 +34,7 @@ tipe(new Error())   // 'error'
 ```
 
 ## Methods
-Each type has two boolean tests methods, the type name it self, and is<Typename> for purists who object to method names that are also reserved words
+Each type has two boolean tests methods, the type name itself, and is<Typename> for those who prefer method names that don't conflict with reserved words.
 
 ```js
 tipe.boolean(false)       // true
