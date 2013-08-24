@@ -4,11 +4,13 @@
 
   See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is
   
+  Tipe includes a base method, tipe(value) which returns a string, useful in switch statements.  
+  
+  For each tipe there are two boolean test methods: tipe.<tipeName>(value), and tipe.is<Tipename>(value).
+  
+  You may add your own custom types for any constructor, and they work like any other type.  
+  
   Tipe aims to be fast, and may be faster than is in some cases.  Run "node bench" to see.
-  
-  Tipe includes a base method, tipe(value) which returns a string, usefull for switch statements.  
-  
-  Tipe supports custom types for any constructor.
   
   We rely on this public module in a large-scale web service via ordinary npm.  We welcome any improvements.  
   
