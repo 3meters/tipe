@@ -23,8 +23,7 @@
   },
   "main": "tipe.js",
   "scripts": {
-    "test": "node test.js",
-    "bench": "node bench.js",
+    "test": "node test.js"
   },
   "license": "MIT",
   "readmeFilename": "Readme.md"
