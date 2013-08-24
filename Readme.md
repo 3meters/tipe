@@ -8,11 +8,11 @@
   
   Still reading?  Tipe provides a base method, tipe(identifier) that returns a string for all valid identifiers, making it a valid replacement for Javascript's native typeof.  It fixes all the obvious bugs in typeof.  This is useful if you want to write switch statements based on the type of identifiers.
   
-  Tipeown custom tipes for any constructor.  See the docs below.
+  tipe.addTipe(Constructor, typeName) lets you add your own custom tipes for any constru
   
   Tipe aims to be fast. Run node bench to compare the performance of tipe versus is.
   
-  We rely on tipe for a large-scale, closed-source public web service backing mobile apps, and keep track of it every day. We welcome all improvements.
+  We rely on the master public branch of tipe for a large-scale, closed-source public web service backing mobile apps. We keep track of it every day, and welcome all improvements.
 
   Enjoy!
 
