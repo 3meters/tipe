@@ -1,5 +1,7 @@
 /**
  * tipe tests
+ *
+ * To run:  node test
  */
 
 var tipe = require('./tipe.js')

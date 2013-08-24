@@ -1,6 +1,6 @@
 {
   "name": "tipe",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Simple, fast, extensible JavaScript type checker",
   "homepage": "https://github.com/3meters/tipe",
   "keywords": [
@@ -23,7 +23,8 @@
   },
   "main": "tipe.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "bench": "node bench.js",
   },
   "license": "MIT",
   "readmeFilename": "Readme.md"

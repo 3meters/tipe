@@ -4,11 +4,11 @@
 
   If you want a popular, hardended type-checker you should probably look at is:  https://github.com/enricomarino/is
 
-  You probably should not use this module.  It is not worth the weight of a dependency.  You should write your own.  Feel free to copy-paste any source find useful.
+  Tipe provides two features missing from is.  First, the base method tipe(foo) always returns a string for any valid identifier, just like typeof, making it easy to use in switch statements.  Second, you can add your own custom tipes for any constructor. However, tipe lacks many features that is provides, including equality tests and mathematical comparitors.
 
-  Tipe provides two tiny features that is does not: you can add custom types for any constructor, and the base method, tipe(foo) always returns an accurate string for the type of foo, even if foo is of type "poodle".  It lacks many features that is provides, including equality tests and mathematical comparitors.
+  In some use cases tipe may be faster than is.  Run node bench for a simple test.  This is experimental and may be full of holes.  Feel free to add more or better tests and or benchmarks.
 
-  If for some reason you like tipe and want to accept the dependency, be assured that we dogfood the master branch in production and endevor to respond to all problems quickly.
+  Enjoy!
 
 ## Install with nodejs
 
@@ -20,6 +20,7 @@
 var tipe = require('tipe')
 tipe()              // 'undefined'
 tipe(null)          // 'null'
+tipe('foo')         // 'string'
 tipe(false)         // 'boolean'
 tipe(1)             // 'number'
 tipe({})            // 'object'
@@ -29,10 +30,13 @@ tipe(new Error())   // 'error'
 ```
 
 ## Methods
-Each type has a base method that returns a boolean
+Each type has two boolean tests methods, the type name it self, and is<Typename> for purists who object to method names that are also reserved words
+
 ```js
-tipe.boolean(false)      // true
-tipe.error(new Error())  // true
+tipe.boolean(false)       // true
+tipe.isBoolean(false)     // true
+tipe.error(new Error())   // true
+tipe.isError(new Error()) // true
 ```
 etc...
 
@@ -47,6 +51,7 @@ tipe(fido)              // 'object'
 tipe.add('Dog', 'dog')
 tipe(fido)              // 'dog'
 tipe.dog(fido)          // true
+tipe.isDog(fido)        // true
 ```
 
 

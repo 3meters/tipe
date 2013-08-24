@@ -10,6 +10,7 @@
  *  MIT Licensed
  */
 
+var toString = Object.prototype.toString
 
 // Main
 function tipe(v) {
@@ -20,9 +21,8 @@ function tipe(v) {
   result = tipeMap[typeof(v)]
   if (result) return result
 
-  // Optimized checkers
+  // Fix the infamous bug in typeof
   if (null === v) return 'null'
-  if (Array.isArray(v)) return 'array'
 
   // Check for custom classes
   if (v.constructor) {
@@ -31,7 +31,7 @@ function tipe(v) {
   }
 
   // We have some kind of object, but what kind?
-  className = Object.prototype.toString.call(v).slice(8, -1)
+  className = toString.call(v).slice(8, -1)
 
   return tipeMap[className] || 'object'
 }
@@ -80,22 +80,21 @@ tipe.truthy = tipe.isTruthy = function(v) {
 }
 
 
-// Pure sugar
-tipe.defined = tipe.isDefined = function(v) {
-  return (undefined !== v)
-}
-
-
 // Add a user-specfied tipe to the tipeMap
 // The className must be the name of the constructor
-tipe.add = function(className, tipeName) {
-  if ('Object' === className || tipeMap[className]) return // ddt
+tipe.add = tipe.addTipe = function(className, tipeName) {
+  if ('null' === className
+      || 'Object' === className
+      || tipeMap[className]) {
+    return // ddt
+  }
   tipeMap[className] = tipeName
   addMethod(tipeName)
 }
 
 
-// Sweeten with tipe.string(v), tipe.isString(v), tipe.poodle(v), etc.
+// Add two boolean test methods for a type, the type name itself and
+// is<typename>, e.g. tipe.array() and tipe.isArray()
 function addMethod(tipeName) {
   var upperCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1)
   tipe['is' + upperCaseTipeName] = function(v) {
@@ -107,6 +106,50 @@ function addMethod(tipeName) {
 }
 
 
+// Replace the two-step map lookup function in cases
+// where there is a faster means of a boolean type test
+// This method can be skipped and tipe will still run.
+// For fun run node bench with and without it.
+function addOptimizedMethods() {
+  tipe['undefined'] = tipe.isUndefined = function(v) {
+    return undefined === v;
+  }
+  tipe.defined = tipe.isDefined = function(v) {
+    return undefined !== v;
+  }
+  tipe['null'] = tipe.isNull = function(v) {
+    return null === v;
+  }
+  tipe.string = tipe.isString = function(v) {
+    return 'string' === typeof(v);
+  }
+  tipe.number = tipe.isNumber = function(v) {
+    return 'number' === typeof(v);
+  }
+  tipe['boolean'] = tipe.isBoolean = function(v) {
+    return 'boolean' === typeof(v);
+  }
+  tipe['function'] = tipe.isFunction = function(v) {
+    return 'function' === typeof(v);
+  }
+  tipe.array = tipe.isArray = function(v) {
+    return Array.isArray(v)
+  }
+  tipe.regexp = tipe.isRegexp = function(v) {
+    return '[object RegExp]' === toString.call(v);
+  }
+  tipe.error = tipe.isError = function(v) {
+    return '[object Error]' === toString.call(v);
+  }
+  tipe.date = tipe.isDate = function(v) {
+    return '[object Date]' === toString.call(v);
+  }
+  // arguments is a no-op as a function property
+  tipe.args = tipe.isArgs = tipe.isArguments = function(v) {
+    return '[object Arguments]' === toString.call(v);
+  }
+}
+
 // Add submethods on require
 (function() {
   for (var key in tipeMap) {
@@ -114,7 +157,7 @@ function addMethod(tipeName) {
   }
   addMethod('null')
   addMethod('object')
-  tipe.args = tipe.isArguments
+  addOptimizedMethods() // can be commented out
 })()
 
 

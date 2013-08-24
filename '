@@ -1,19 +1,11 @@
 /**
  * benchmark tipe vs is
- *
- * To run:  node bench
- *
- *   This is very basic, and no attempt is made to simulate
- *   a real-world distribution of typical use.  It weighs the
- *   most common methods and value types equally, which surely
- *   is not ideal, and may scew the results.
  */
 
 var bench = require('bench')    // https://github.com/isaacs/node-bench
 var is = require('is')          // https://github.com/enricomarino/is
 var tipe = require('./tipe')
 
-// Map of boolean methods to test
 var methods = {
   a: 'undefined',
   b: 'null',
@@ -53,13 +45,11 @@ var values = [
 var cValues = values.length
 
 
-/*
- * Lib is the library to test.  Pass in a optional method
- * key, 'a' for undefined, 'b' for null, etc., in the compare
- * function below to test a particular method. If none is
- * provided all methods in the methods map will be evaluated
- * equally.
- */
+// Lib is the library to test.  Pass in a optional method
+// key 'a' for undefined, 'b' for null, etc. in the compare
+// function below to test a particular tipe method vs the
+// corresponding is method. If none is provided all methods
+// in the methods map will be evaluated equally
 function test(lib, method) {
   var result, value, i
 
