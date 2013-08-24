@@ -4,18 +4,15 @@
 
   See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is
 
-  Still reading?  Why use tipe? Short answer, you probably shouldn't; you should write you own.  A type checker is not worth a module dependency.  Feel free to copy any code or ideas you find usefull. We certainly did.  
+  Why use tipe? Short answer, you probably shouldn't; you should write you own.  A type checker is not worth a module dependency.  Feel free to copy any code or ideas you find usefull. We certainly did.  
   
-  Still reading?  Tipe provides a base method, tipe(identifier) that returns a string for all valid identifiers, making it a valid replacement for the javascripts native typeof.  It fixes all the obvious bugs in typeof.  This is useful if you want to write switch statements based on the type of identifiers.
+  Still reading?  Tipe provides a base method, tipe(identifier) that returns a string for all valid identifiers, making it a valid replacement for Javascript's native typeof.  It fixes all the obvious bugs in typeof.  This is useful if you want to write switch statements based on the type of identifiers.
   
-  Tipe adds one feature we find useful: you can add your own custom tipes for any constructor.
+  Tipeown custom tipes for any constructor.  See the docs below.
   
-  Tipe may be faster than is, although Here are 
+  Tipe aims to be fast. Run node bench to compare the performance of tipe versus is.
   
-  
-  
-  
-  We rely on tipe for a closed-source public web service backing a mobile application.  
+  We rely on tipe for a large-scale, closed-source public web service backing mobile apps, and keep track of it every day. We welcome all improvements.
 
   Enjoy!
 
