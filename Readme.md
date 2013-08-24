@@ -6,7 +6,7 @@
   
   Tipe includes a base method, tipe(value) which returns a string, useful in switch statements.  
   
-  For each tipe there are two boolean test methods: tipe.<tipeName>(value), and tipe.is<Tipename>(value).
+  For each tipe there are two boolean test methods: tipe.tipename(value), and tipe.isTipename(value).
   
   You may add your own custom types for any constructor, and they work like any other type.  
   
