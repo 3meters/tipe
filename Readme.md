@@ -3,21 +3,17 @@
   Simple, fast, extensible javascript type checker.
 
   See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is
-
-  Why use tipe? Short answer, you probably shouldn't; you should write you own.  A type checker is not worth a module dependency.  Feel free to copy any code or ideas you find usefull. We certainly did.  
   
-  Still reading?  Tipe provides a base method, tipe(identifier) that returns a string for all valid identifiers, making it a valid replacement for Javascript's native typeof.  It fixes all the obvious bugs in typeof.  This is useful if you want to write switch statements based on the type of identifiers.
+  Tipe aims to be fast, and may be faster than is in some cases.  Run "node bench" to see.
   
-  tipe.addTipe(Constructor, typeName) lets you add your own custom tipes for any constructor.
+  Tipe includes a base method, tipe(value) which returns a string, usefull for switch statements.  
   
-  For all tipes, including custom tipes, tipe provides boolean test methods: tipe.<type>(value) and tipe.is<Type>(value).   
+  Tipe supports custom types for any constructor.
   
-  Tipe aims to be fast. Run "node bench" to compare the performance of the current versions of tipe versus is.
+  We rely on this public module in a large-scale web service via ordinary npm.  We welcome any improvements.  
   
-  Using ordinary public npm, we rely on tipe every day inside hot loops in a large-scale, closed-source public web service backing mobile apps.  We welcome all improvements.
-
-  Enjoy!
-
+  -Enjoy
+  
 ## Install with nodejs
 
     npm install tipe
