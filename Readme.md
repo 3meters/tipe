@@ -8,11 +8,13 @@
   
   Still reading?  Tipe provides a base method, tipe(identifier) that returns a string for all valid identifiers, making it a valid replacement for Javascript's native typeof.  It fixes all the obvious bugs in typeof.  This is useful if you want to write switch statements based on the type of identifiers.
   
-  tipe.addTipe(Constructor, typeName) lets you add your own custom tipes for any constru
+  tipe.addTipe(Constructor, typeName) lets you add your own custom tipes for any constructor.
   
-  Tipe aims to be fast. Run node bench to compare the performance of tipe versus is.
+  For all tipes, including custom tipes, tipe provides boolean test methods: tipe.<type>(value) and tipe.is<Type>(value).   
   
-  We rely on the master public branch of tipe for a large-scale, closed-source public web service backing mobile apps. We keep track of it every day, and welcome all improvements.
+  Tipe aims to be fast. Run "node bench" to compare the performance of the current versions of tipe versus is.
+  
+  Using ordinary public npm, we rely on tipe every day inside hot loops in a large-scale, closed-source public web service backing mobile apps.  We welcome all improvements.
 
   Enjoy!
 
@@ -54,7 +56,7 @@ Add your own custom tipes for constructors:
 function Dog(){}
 var fido = new Dog()
 tipe(fido)              // 'object'
-tipe.add('Dog', 'dog')
+tipe.addTipe('Dog', 'dog')
 tipe(fido)              // 'dog'
 tipe.dog(fido)          // true
 tipe.isDog(fido)        // true
