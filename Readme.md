@@ -10,7 +10,7 @@ Simple, fast, extensible javascript type checker.
 
 See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is.  
   
-If you're unhappy with is, you should probably write your own.  Tipe provides a few small features missing from is.  Feel free to rely on it as a module or to copy any ideas or source you find useful.  We certainly did.
+If you're unhappy with is, you should probably write your own type checker.  Tipe provides a few small features we found missing from is.  Feel free to rely on it as a module or to copy any ideas or source you find useful.  We certainly did.
 
 ## String names for all types
 Tipe includes a base method, tipe(value) which always returns a string, like typeof, for all valid identifiers, including custom tipes. We find this useful in switch statements.  
