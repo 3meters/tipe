@@ -67,5 +67,3 @@ Copyright (c) 2013 3meters.  All rights reserverd.
 
 ## License
 MIT
-
--Enjoy
