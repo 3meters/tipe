@@ -56,14 +56,7 @@ var tipeMap = {
 
 // Handy for determining pass-by-value versus pass-by-reference
 tipe.scalar = tipe.isScalar = function(v) {
-  return (
-    tipe.string(v)
-    || tipe.number(v)
-    || tipe.boolean(v)
-    || tipe.null(v)
-    || tipe.undefined(v)
-    || !(v instanceof Object)
-  )
+  return !(v instanceof Object)
 }
 
 
@@ -142,7 +135,11 @@ function addOptimizedMethods() {
     return '[object Error]' === toString.call(v);
   }
   tipe.date = tipe.isDate = function(v) {
-    return '[object Date]' === toString.call(v);
+    return v instanceof Date;
+  }
+  tipe.object = tipe.isObject = function(v) {
+    return ('[object Object]' === toString.call(v)
+        && !(v.constructor && tipeMap[v.constructor.name]));
   }
   // arguments is a no-op as a function property
   tipe.args = tipe.isArgs = tipe.isArguments = function(v) {

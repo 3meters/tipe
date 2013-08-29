@@ -3,38 +3,53 @@
  *
  * To run:  node bench
  *
- *   This is very basic, and no attempt is made to simulate
+ *   This is a very crude benchmark. No attempt is made to simulate
  *   a real-world distribution of typical use.  It weighs the
  *   most common methods and value types equally, which surely
- *   is not ideal, and may scew the results.
+ *   is wrong and scews the results, possibly significantly.
+ *
+ *   Improvements welcome.
  */
+
 
 var bench = require('bench')    // https://github.com/isaacs/node-bench
 var is = require('is')          // https://github.com/enricomarino/is
 var tipe = require('./tipe')
+var details = false              // benchmark each method separately
 
-// Map of boolean methods to test
-var methods = {
-  a: 'undefined',
-  b: 'null',
-  c: 'boolean',
-  d: 'number',
-  e: 'string',
-  f: 'object',
-  g: 'date',
-  h: 'array',
-  i: 'regexp',
-  j: 'function',
-  k: 'error',
-}
 
-// Set up some dummy values of various types
+// Set higher for slower, more accurate tests
+exports.time = 1000       // default 1000
+exports.compareCount = 8  // defalut 8
+
+
+// Methods to test
+var methods = [
+  'undefined',
+  'null',
+  'boolean',
+  'number',
+  'string',
+  'object',
+  'date',
+  'array',
+  'regexp',
+  'function',
+  'error',
+]
+
+
+// Dummy values of various types
 var undef = undefined
-var now = Date.now()
+var date = new Date()
 var args = undefined
 var fn = function() {args = arguments}
 var err = new Error()
 
+
+// Values is a array of values that will be randomly fired at the
+// benchmarked libraies. It should be the result of an application-
+// specific function.
 var values = [
   undef,
   null,
@@ -50,41 +65,68 @@ var values = [
   args,
 ]
 
-var cValues = values.length
+
+/*
+ * Test is the function that bench measures.  Lib is the
+ * library to test. The optional index parameter tests a
+ * particular method. If no index is provided all methods
+ * are evaluated proportunally.
+ */
+function test(lib, index) {
+  var result
+
+  function randValue() {
+    return values[Math.floor(Math.random() * values.length)]
+  }
+
+  if (index) {
+    result = lib[methods[index]](randValue())
+  }
+  else {
+    methods.forEach(function(method) {
+      result = lib[method](randValue())
+    })
+  }
+
+  return result  // make it harder for v8 to optimize away
+}
 
 
 /*
- * Lib is the library to test.  Pass in a optional method
- * key, 'a' for undefined, 'b' for null, etc., in the compare
- * function below to test a particular method. If none is
- * provided all methods in the methods map will be evaluated
- * equally.
+ * Async serial compare of each method, counting down. Normally
+ * the function signiture would be (err, i), but Isaacs has broken
+ * his own cardinal rule, and made bench swallow errors here:
+ * (https://github.com/isaacs/node-bench/blob/master/lib/bench.js#L35)
+ * perhaps to minimize benchmark moving parts.
  */
-function test(lib, method) {
-  var result, value, i
+function compareMethod(i) {
 
-  if (method) {
-    i = Math.floor(Math.random() * cValues)
-    value = values[Math.floor(Math.random() * cValues)]
-    result = lib[methods[method]](value)
+  if (!(i--)) return compareSummary()  // done, break recursion
+
+  exports.compare = {}
+  exports.compare['is.' + methods[i]] = function() { test(is, i)}
+  exports.compare['tipe.' + methods[i]] = function() { test(tipe, i)}
+
+  exports.done = function(results) {
+    console.log(results)
+    compareMethod(i) // recurse
   }
-  else {
-    for (method in methods) {
-      i = Math.floor(Math.random() * cValues)
-      value = values[i]
-      result = lib[methods[method]](value)
-    }
-  }
-  return result  // to make it harder for v8 to optimize away
+
+  bench.runMain() // calls exports.done when finished
 }
 
-exports.compare = {
-  'is':   function() { test(is) },
-  'tipe': function() { test(tipe) },
+
+// Compare all methods
+function compareSummary() {
+  console.log('\n\nSummary\n==========\n')
+  exports.done = undefined  // use default bench output
+  exports.compare = {}
+  exports.compare.is   = function() { test(is, 6)   }
+  exports.compare.tipe = function() { test(tipe, 6) }
+  bench.runMain()
 }
 
-// Bigger numbers make for slower, more accurate tests
-exports.time = 1000       // default 1000
-exports.compareCount = 8  // default 8
 
-bench.runMain()
+// Run
+if (details) compareMethod(methods.length)
+else compareSummary()

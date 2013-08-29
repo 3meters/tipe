@@ -4,30 +4,42 @@
  * To run:  node test
  */
 
-var tipe = require('./tipe.js')
+var tipe = require('./tipe')
+var sample = require('./testdata')
 var assert = require('assert')
 var undef
+var log = console.log
 
-// Basic use
-assert('undefined' === tipe())
-assert('undefined' === tipe(undef))
-assert('null' === tipe(null))
-assert('boolean' === tipe(true))
+log('Sample tipes:')
+log(sample)
+
+// Basic use of string tipes
+for (var t in sample) {
+  assert(t === tipe(sample[t]),
+      'Error: ' + t + ': ' + tipe(sample[t]))
+}
+
+// Extra cases
 assert('boolean' === tipe(false))
 assert('number' === tipe(0))
 assert('number' === tipe(-1))
 assert('number' === tipe(1))
 assert('number' === tipe(new Number(1)))
 assert('number' === tipe(NaN))
-assert('string' === tipe('s'))
-assert('object' === tipe({}))
-assert('date' === tipe(new Date()))
-assert('array' === tipe([]))
-assert('regexp' === tipe(/./))
-assert('function' === tipe(function foo(){}))
 assert('function' === tipe(Error))
-assert('error' === tipe(new Error()))
 assert('error' === tipe(new SyntaxError()))
+
+// Boolean methods:
+for (var t in sample) {
+  for (var v in sample) {
+    if (v === t) {
+      assert(tipe[t](sample[v]), 'tipe: ' + t + ' value: ' + v)
+    }
+    else {
+      assert(!tipe[t](sample[v]), 'tipe: ' + t + ' value: ' + v)
+    }
+  }
+}
 
 // Truthy
 assert(tipe.truthy(1))
@@ -73,6 +85,7 @@ assert(tipe.scalar(null))
 assert(tipe.scalar())
 assert(!tipe.scalar({}))
 assert(!tipe.scalar([]))
+assert(!tipe.scalar(new Date()))
 assert(!tipe.scalar(function(){}))
 
 // User-defined tipes
