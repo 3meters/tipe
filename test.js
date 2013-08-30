@@ -1,25 +1,24 @@
 /**
  * tipe tests
- *
+ * *
  * To run:  node test
  */
 
 var tipe = require('./tipe')
-var sample = require('./testdata')
+var sample = require('./sample')
 var assert = require('assert')
-var undef
 var log = console.log
 
 log('Sample tipes:')
 log(sample)
 
-// Basic use of string tipes
+// Test basic use:  tipe(null) === 'null', etc...
 for (var t in sample) {
   assert(t === tipe(sample[t]),
       'Error: ' + t + ': ' + tipe(sample[t]))
 }
 
-// Extra cases
+// Extra cases just to be sure
 assert('boolean' === tipe(false))
 assert('number' === tipe(0))
 assert('number' === tipe(-1))
@@ -29,19 +28,20 @@ assert('number' === tipe(NaN))
 assert('function' === tipe(Error))
 assert('error' === tipe(new SyntaxError()))
 
-// Boolean methods:
+// Test boolean methods of all sample types aginst all sample values
 for (var t in sample) {
   for (var v in sample) {
-    if (v === t) {
-      assert(tipe[t](sample[v]), 'tipe: ' + t + ' value: ' + v)
+    var corpse = 'type: ' + t + ' value: ' + v
+    if (t === v) {
+      assert(tipe[t](sample[v]), corpse)
     }
     else {
-      assert(!tipe[t](sample[v]), 'tipe: ' + t + ' value: ' + v)
+      assert(!tipe[t](sample[v]), corpse)
     }
   }
 }
 
-// Truthy
+// Test truthy
 assert(tipe.truthy(1))
 assert(tipe.truthy(45.6))
 assert(tipe.truthy('1'))
@@ -56,27 +56,7 @@ assert(!tipe.truthy('0'))
 assert(!tipe.truthy('-1'))
 assert(!tipe.truthy('foo')) // not like javascript
 
-// Tipe methods
-assert(tipe.undefined())
-assert(tipe.undefined(undef))
-assert(tipe.defined(1))
-assert(tipe.defined(null))
-assert(!tipe.defined())
-assert(!tipe.defined({}.foo))
-assert(tipe.null(null))
-assert(!tipe.null(undef))
-assert(tipe.boolean(true))
-assert(tipe.boolean(false))
-assert(!tipe.boolean(0))
-assert(!tipe.boolean(1))
-assert(tipe.regexp(/./))
-assert(tipe.error(new Error()))
-assert(tipe.array([]))
-assert(tipe.object({}))
-assert(tipe.isArguments((function() {return arguments})()))
-assert.throws(function() {tipe.bogusMethod()})
-
-// Scalar
+// Test scalar
 assert(tipe.scalar(1))
 assert(tipe.scalar('hi'))
 assert(tipe.scalar(true))
@@ -88,7 +68,7 @@ assert(!tipe.scalar([]))
 assert(!tipe.scalar(new Date()))
 assert(!tipe.scalar(function(){}))
 
-// User-defined tipes
+// Test user-defined tipes
 function Dog() {}
 var rover = new Dog()
 assert(tipe.object(rover))
@@ -97,13 +77,5 @@ assert(tipe.dog(rover))
 assert('dog' === tipe(rover))
 assert(!tipe.object(rover))
 assert(!tipe.dog({}))
-
-// Is-methods
-assert(tipe.isNumber(1))
-assert(tipe.isTruthy(1))
-assert(tipe.isScalar(1))
-assert(tipe.isDefined(1))
-assert(tipe.isObject({}))
-assert(tipe.isDog(rover))
 
 console.log('tipe tests pass')

@@ -1,5 +1,7 @@
 /**
- * tipe test data for functional tests and benchmark
+ * Sample object for tipe functional tests and benchmarks.
+ *   Each key is a named type.  Each key's value is a
+ *   value of that type.
  */
 
 
@@ -11,7 +13,7 @@ var fn = function() {ar = arguments}
 fn() // sets ar
 
 
-// Each tipe mapped to a sample value of that tipe
+// Each named type mapped to a value of that type
 module.exports = {
   'undefined': undefined,
   'null': null,
@@ -23,6 +25,6 @@ module.exports = {
   'regexp': /^a/,
   'error': err,
   'function': fn,
-  'arguments': ar,
+//  'arguments': ar,
   'object': {}
 }
