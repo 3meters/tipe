@@ -15,6 +15,7 @@
 var bench = require('bench')    // https://github.com/isaacs/node-bench
 var is = require('is')          // https://github.com/enricomarino/is
 var tipe = require('./tipe')
+var sample = require('./test').sample
 var details = false              // benchmark each method separately
 
 
