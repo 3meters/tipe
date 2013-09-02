@@ -126,19 +126,19 @@ function addOptimizedMethods() {
     return 'function' === typeof(v);
   }
   tipe.array = tipe.isArray = function(v) {
-    return Array.isArray(v)
+    return Array.isArray(v);
   }
   tipe.regexp = tipe.isRegexp = function(v) {
-    return '[object RegExp]' === toString.call(v);
+    return (v instanceof RegExp);
   }
   tipe.error = tipe.isError = function(v) {
-    return '[object Error]' === toString.call(v);
+    return (v instanceof Error);
   }
   tipe.date = tipe.isDate = function(v) {
     return v instanceof Date;
   }
   tipe.object = tipe.isObject = function(v) {
-    return ('[object Object]' === toString.call(v)
+    return (v && '[object Object]' === toString.call(v)
         && !(v.constructor && tipeMap[v.constructor.name]));
   }
   // arguments is a no-op as a function property
