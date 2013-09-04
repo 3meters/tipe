@@ -5,8 +5,8 @@
  */
 
 var tipe = require('./tipe')
-var assert = require('assert')
-var log = console.log
+var _assert = require('assert')
+var assertCount = 0
 
 
 // Dummy values of various types
@@ -32,6 +32,13 @@ var sample = exports.sample = {
   'function': fn,
   'arguments': ar,
   'object': {}
+}
+
+
+// Count successful assertions
+var assert = function(expr, msg) {
+  _assert(expr, msg)
+  assertCount++
 }
 
 
@@ -123,4 +130,4 @@ assert('dog' === tipe(rover))
 assert(!tipe.object(rover))
 assert(!tipe.dog({}))
 
-console.log('tipe tests pass')
+console.log(assertCount + ' tipe tests pass')
