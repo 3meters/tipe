@@ -1,4 +1,4 @@
-#tipe[![NPM version](https://badge.fury.io/js/tipe.png)](http://badge.fury.io/js/tipe)
+#tipe [![NPM version](https://badge.fury.io/js/tipe.png)](http://badge.fury.io/js/tipe)
 
 The world's only javascript type checker
     
@@ -58,7 +58,7 @@ tipe.isDog(fido)        // true
 Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  Here is the bench summary output for tipe@0.1.8 vs is@0.2.6, weighing shared methods equally:  
 
 Bench Summary:
-
+```
 benchmarking ... /tipe/bench.js
 Please be patient.
 { http_parser: '1.0',
@@ -100,7 +100,7 @@ Compared with next highest (is), it's:
 55.13% faster
 2.23 times as fast
 0.35 order(s) of magnitude faster
- 
+``` 
 
 To see method-by-method comparisons for yourself, run "node bench".
 
