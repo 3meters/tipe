@@ -1,19 +1,23 @@
 #tipe
 
-Simple, fast, extensible javascript type checker.
+The world's only javascript type checker
 
 ## Install with nodejs
 
     npm install tipe
     
-## Why tipe? 
+## Why tipe?
 
 See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is.
-  
-If you're unhappy with is, you should probably write your own type checker.  Tipe provides a few small features we found missing from is.  Feel free to rely on it as a module or to copy any ideas or source you find useful.  We certainly did.
+
+If you are not content with is, you should write your own type checker.
+
+Still reading?  
+
+tipe is a drop-in replacement for javascript's native typeof, returning a string for all passed-in values, with three impotant differences:  First: tipe is right when typeof is wrong, second: you can extend tipe to describe any type you care about, third: tipe is extremely fast, more than twice as fast as is
 
 ## String names for all types
-Tipe includes a base method, tipe(value) which always returns a string, like typeof, for all valid identifiers, including custom tipes. We find this useful in switch statements.  
+Tipe includes a base method, tipe(value) which always returns a string, like typeof, for all valid identifiers, including custom tipes. This is useful in switch statements.  
 
 ```js
 var tipe = require('tipe')
