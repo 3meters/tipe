@@ -4,11 +4,10 @@ The world's only javascript type checker
     
 ## Why tipe?
 
-Figuring out the type of any Javascript variable is difficult frought with ambiguity.  Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
+Figuring out the type of any Javascript variable is frought with ambiguity.  Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
 
-Not content with is?  You should probably write your own type checker.
+Not content with is?  You should probably write your own type checker.  The tipe module is our take on the problem.  We use it in production.  
 
-Still not content?  
 ## Install with nodejs
 ```js
     npm install tipe
