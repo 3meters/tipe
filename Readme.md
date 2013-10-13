@@ -1,24 +1,26 @@
 #tipe
 
 The world's only javascript type checker
-
-## Install with nodejs
-
-    npm install tipe
     
-## Why tipe?
+## Why?
 
 See "is" for a popular, reliable, battle-tested type-checker:  https://github.com/enricomarino/is.
 
 If you are not content with is, you should write your own type checker.
 
-Still reading?  
+Still reading? 
 
-tipe is a drop-in replacement for javascript's native typeof, returning a string for all passed-in values, with three impotant differences:  First: tipe is right when typeof is wrong, second: you can extend tipe to describe any type you care about, third: tipe is extremely fast, more than twice as fast as is
+tipe is a drop-in replacement for javascript's native typeof, returning a string for all passed-in values, with three impotant differences:  First: tipe is right when typeof is wrong, second: you can extend tipe to describe any type you care about, third: tipe is extremely fast, more than twice as fast as is.
 
-## String names for all types
+As cheese, tipe includes .<type> and .<isType> boolean test methods for all types, including custom types that you define. 
+
+## Install with nodejs
+```js
+    npm install tipe
+```
+
+## Basic use
 Tipe includes a base method, tipe(value) which always returns a string, like typeof, for all valid identifiers, including custom tipes. This is useful in switch statements.  
-
 ```js
 var tipe = require('tipe')
 tipe()              // 'undefined'
@@ -59,13 +61,13 @@ tipe.isDog(fido)        // true
 ```
 
 ## Performance
-Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result, no matter how strange that expresion may appear.  This is code you definitely don't want visible in your application :). Run "node bench" to see performance benchmarks vs is.  Tipe version 0.1.8 is roughly twice as fast as is version 0.2.6 in our admitted crude benchmark.
+Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  To see for yourself run "node bench" to measure tipe performance vs is.
 
 ## Dogfood
-We rely heavily on this public version of tipe in a large-scale web service using ordinary npm. We welcome any improvements via email, bugs, or PRs.
+3meters relies on the public tipe module for our aircandi web service.
 
-## Caveats
-Tipe lacks many features of is and other type checkers such as equality tests and mathematical comparitors.  We use other libraries for those tasks.  At the margins, we have chosen performance over specificity for some types we consider edge cases, i.e. tipe(NaN) is 'number', not 'NaN'.
+## Contributing
+We welcome any improvements via email, issues, or PRs.
 
 ## Copyright
 Copyright (c) 2013 3meters.  All rights reserverd.
