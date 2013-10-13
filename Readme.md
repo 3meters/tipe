@@ -55,7 +55,7 @@ tipe.isDog(fido)        // true
 ```
 
 ## Performance
-Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  Here is the bench summary output for tipe@0.1.8 vs is@0.2.6, weighing shared methods equally:  
+Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  Here is the bench summary output for tipe@0.1.9 vs is@0.2.6, weighing shared methods equally:  
 
 Bench Summary:
 ```
@@ -102,7 +102,10 @@ Compared with next highest (is), it's:
 0.35 order(s) of magnitude faster
 ``` 
 
-To see method-by-method comparisons for yourself, run "node bench".
+To see method-by-method comparisons for yourself, run
+```
+node bench
+```
 
 ## Dogfood
 3meters relies on the public tipe module for our aircandi web service.
