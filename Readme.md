@@ -6,7 +6,7 @@ The world's only javascript type checker
 
 Figuring out the type of any Javascript variable is frought with ambiguity.  Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
 
-Not content with is?  You should probably write your own type checker.  The tipe module is our take on the problem.  It is twice as fast as is and supports custom types.
+Not content with is?  You should probably write your own type checker.  The tipe module is our take on the problem.  It is roughly twice as fast as is and supports custom types.
 
 ## Install with nodejs
 ```js
