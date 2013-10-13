@@ -1,12 +1,12 @@
-#tipe
+#tipe[![NPM version](https://badge.fury.io/js/tipe.png)](http://badge.fury.io/js/tipe)
 
 The world's only javascript type checker
     
 ## Why tipe?
 
-Figuring out the type of any Javascript variable is frought with ambiguity.  Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
+Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
 
-Not content with is?  You should probably write your own type checker.  The tipe module is our take on the problem.
+Not content with is?  You should probably write your own type checker.
 
 ## Install with nodejs
 ```js
@@ -55,7 +55,54 @@ tipe.isDog(fido)        // true
 ```
 
 ## Performance
-Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  To see for yourself run "node bench" to measure tipe performance vs is.
+Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  Here is the bench summary output for tipe@0.1.8 vs is@0.2.6, weighing shared methods equally:  
+
+Bench Summary:
+
+benchmarking ... /tipe/bench.js
+Please be patient.
+{ http_parser: '1.0',
+  node: '0.10.16',
+  v8: '3.14.5.9',
+  ares: '1.9.0-DEV',
+  uv: '0.10.13',
+  zlib: '1.2.3',
+  modules: '11',
+  openssl: '1.0.1e' }
+Scores: (bigger is better)
+
+tipe
+Raw:
+ > 102.7944111776447
+ > 103.58565737051792
+ > 104.06342913776015
+ > 103.27706057596822
+ > 103.58565737051792
+ > 103.68893320039881
+ > 103.17460317460318
+ > 101.69491525423729
+Average (mean) 103.233083407706
+
+is
+Raw:
+ > 46.396841066140176
+ > 46.48862512363996
+ > 46.53465346534654
+ > 45.54455445544554
+ > 46.48862512363996
+ > 46.53465346534654
+ > 46.44268774703557
+ > 46.16895874263261
+Average (mean) 46.32494989865336
+
+Winner: tipe
+Compared with next highest (is), it's:
+55.13% faster
+2.23 times as fast
+0.35 order(s) of magnitude faster
+ 
+
+To see method-by-method comparisons for yourself, run "node bench".
 
 ## Dogfood
 3meters relies on the public tipe module for our aircandi web service.
