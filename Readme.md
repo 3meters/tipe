@@ -4,7 +4,7 @@ The world's only javascript type checker
     
 ## Why tipe?
 
-Javasript's native typeof is famously broken, and most folks use the excellent is library: https://github.com/enricomarino/is to check types.  
+Figuring out the type of any Javascript variable is difficult frought with ambiguity.  Javasript's native typeof is famously broken.  Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.  
 
 Not content with is?  You should probably write your own type checker.
 
