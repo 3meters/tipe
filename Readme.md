@@ -4,18 +4,11 @@ The world's only javascript type checker
     
 ## Why tipe?
 
-Most folks use the is library to check types: https://github.com/enricomarino/is.
+Javasript's native typeof is famously broken, and most folks use the excellent is library: https://github.com/enricomarino/is to check types.  
 
 Not content with is?  You should probably write your own type checker.
 
-Still not content?  Read on...
-
-## Tipe features
-
-tipe is a drop-in replacement for javascript's native typeof, returning a string for all passed-in values, with three impotant differences:  First: tipe is right when typeof is wrong, second: you can extend tipe to describe any type you care about, third: tipe is extremely fast, more than twice as fast as is.
-
-As cheese, tipe includes .\<type\> and .\<isType\> boolean test methods for all types, including custom types that you define. 
-
+Still not content?  
 ## Install with nodejs
 ```js
     npm install tipe
