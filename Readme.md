@@ -14,7 +14,7 @@ Still not content?  Read on...
 
 tipe is a drop-in replacement for javascript's native typeof, returning a string for all passed-in values, with three impotant differences:  First: tipe is right when typeof is wrong, second: you can extend tipe to describe any type you care about, third: tipe is extremely fast, more than twice as fast as is.
 
-As cheese, tipe includes .<type> and .<isType> boolean test methods for all types, including custom types that you define. 
+As cheese, tipe includes .\<type\> and .\<isType\> boolean test methods for all types, including custom types that you define. 
 
 ## Install with nodejs
 ```js
