@@ -67,7 +67,7 @@ tipe.truthy = tipe.isTruthy = function(v) {
   if ('number' === typeof(v)) return (v > 0)  // negative numbers are false
   if ('string' !== typeof(v)) return (v)      // fall back to javascript
   v = v.toLowerCase()
-  if ('true' === v || 'yes' === v) return true
+  if ('true' === v || 'yes' === v || 'on' === v) return true
   if (parseInt(v) > 0) return true
   return false
 }

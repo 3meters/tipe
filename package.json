@@ -1,6 +1,6 @@
 {
   "name": "tipe",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "The world's only JavaScript type checker",
   "homepage": "https://github.com/3meters/tipe",
   "keywords": [
