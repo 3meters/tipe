@@ -6,7 +6,7 @@
  *  constructors. Provides .string(v), .number(v), etc. for
  *  all tipes as convenience methods.
  *
- *  Copyright (c) 2013 3meters
+ *  Copyright (c) 2013 3meters LLC
  *  MIT Licensed
  */
 
@@ -15,25 +15,25 @@ var toString = Object.prototype.toString
 // Main
 function tipe(v) {
 
-  var result, className
+  var result, className;
 
   // Give typeof first crack
-  result = tipeMap[typeof(v)]
-  if (result) return result
+  result = tipeMap[typeof(v)];
+  if (result) return result;
 
   // Fix the infamous bug in typeof
-  if (null === v) return 'null'
+  if (null === v) return 'null';
 
   // Check for custom classes
   if (v.constructor) {
-    result = tipeMap[v.constructor.name]
-    if (result) return result
+    result = tipeMap[v.constructor.name];
+    if (result) return result;
   }
 
   // We have some kind of object, but what kind?
-  className = toString.call(v).slice(8, -1)
+  className = toString.call(v).slice(8, -1);
 
-  return tipeMap[className] || 'object'
+  return tipeMap[className] || 'object';
 }
 
 
@@ -51,12 +51,12 @@ var tipeMap = {
   'Array': 'array',
   'Date': 'date',
   'Error': 'error',
-}
+};
 
 
 // Handy for determining pass-by-value versus pass-by-reference
 tipe.scalar = tipe.isScalar = function(v) {
-  return !(v instanceof Object)
+  return !(v instanceof Object);
 }
 
 
@@ -64,12 +64,12 @@ tipe.scalar = tipe.isScalar = function(v) {
 // or the strings 'true' or 'yes'.  Handy for booleans set from
 // query strings
 tipe.truthy = tipe.isTruthy = function(v) {
-  if ('number' === typeof(v)) return (v > 0)  // negative numbers are false
-  if ('string' !== typeof(v)) return (v)      // fall back to javascript
-  v = v.toLowerCase()
-  if ('true' === v || 'yes' === v || 'on' === v) return true
-  if (parseInt(v) > 0) return true
-  return false
+  if ('number' === typeof(v)) return (v > 0);  // negative numbers are false
+  if ('string' !== typeof(v)) return (v);      // fall back to javascript
+  v = v.toLowerCase();
+  if ('true' === v || 'yes' === v || 'on' === v) return true;
+  if (parseInt(v) > 0) return true;
+  return false;
 }
 
 
@@ -79,23 +79,23 @@ tipe.add = tipe.addTipe = function(className, tipeName) {
   if ('null' === className
       || 'Object' === className
       || tipeMap[className]) {
-    return // ddt
+    return;  // ddt
   }
-  tipeMap[className] = tipeName
-  addMethod(tipeName)
+  tipeMap[className] = tipeName;
+  addMethod(tipeName);
 }
 
 
 // Add two boolean test methods for a type, the type name itself and
 // is<typename>, e.g. tipe.array() and tipe.isArray()
 function addMethod(tipeName) {
-  var upperCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1)
+  var upperCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1);
   tipe['is' + upperCaseTipeName] = function(v) {
     return tipe(v) === tipeName
-  }
+  };
   tipe[tipeName] = function(v) {
     return tipe(v) === tipeName
-  }
+  };
 }
 
 
@@ -147,16 +147,17 @@ function addOptimizedMethods() {
   }
 }
 
+
 // Add submethods on require
 (function() {
   for (var key in tipeMap) {
-    addMethod(tipeMap[key])
-  }
-  addMethod('null')
-  addMethod('object')
-  addOptimizedMethods() // can be commented out
+    addMethod(tipeMap[key]);
+  };
+  addMethod('null');
+  addMethod('object');
+  addOptimizedMethods(); // can be commented out
 })()
 
 
 // Export
-module.exports = tipe
+module.exports = tipe;

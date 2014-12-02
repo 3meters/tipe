@@ -1,7 +1,7 @@
 {
   "name": "tipe",
-  "version": "0.1.10",
-  "description": "The world's only JavaScript type checker",
+  "version": "0.1.11",
+  "description": "The world's fastest JavaScript type checker for V8 / node.js",
   "homepage": "https://github.com/3meters/tipe",
   "keywords": [
     "type",
@@ -23,7 +23,7 @@
   },
   "main": "tipe.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test"
   },
   "license": "MIT",
   "readmeFilename": "Readme.md"
