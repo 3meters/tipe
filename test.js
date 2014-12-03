@@ -4,6 +4,8 @@
  * To run:  node test
  */
 
+/* jshint asi: true */
+
 var tipe = require('./tipe')
 var _assert = require('assert')
 var assertCount = 0
@@ -12,7 +14,7 @@ var assertCount = 0
 // Dummy values of various types
 var dt = new Date()
 var er = new Error()
-var ar = undefined
+var ar
 var fn = function() {ar = arguments}
 fn() // sets ar
 
@@ -54,8 +56,8 @@ assert('boolean' === tipe(false))
 assert('number' === tipe(0))
 assert('number' === tipe(-1))
 assert('number' === tipe(1))
-assert('number' === tipe(new Number(1)))
-assert('string' === tipe(new String()))
+assert('number' === tipe(Number(1)))
+assert('string' === tipe(String()))
 assert('number' === tipe(NaN))
 assert('function' === tipe(Error))
 assert('error' === tipe(new SyntaxError()))
@@ -63,7 +65,9 @@ assert('error' === tipe(new SyntaxError()))
 
 // Test boolean methods of all sample types aginst all sample values
 for (var method in sample) {
+
   for (var valType in sample) {
+
     var propCaseMeth = 'is' + method.charAt(0).toUpperCase() + method.slice(1)
     var corpse = 'method: ' + method + 'value type: ' + valType
     var propCorpse = 'method: ' + propCaseMeth + 'value type: ' + valType
@@ -71,7 +75,7 @@ for (var method in sample) {
     if (method === valType) {  // tipe.string(sample['string'])
       if ('arguments' === method) {
         // arguments is a noop property of a function
-        assert(tipe['args'](sample[valType]), corpse)
+        assert(tipe.args(sample[valType]), corpse)
       }
       else {
         assert(tipe[method](sample[valType]), corpse)
@@ -82,7 +86,7 @@ for (var method in sample) {
     else {  // tipe.string(sample[<'all types except string'>])
       if ('arguments' === method) {
         // arguments is a noop property of a function
-        assert(!tipe['args'](sample[valType]), corpse)
+        assert(!tipe.args(sample[valType]), corpse)
       }
       else {
         assert(!tipe[method](sample[valType]), corpse)

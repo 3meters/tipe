@@ -58,57 +58,55 @@ tipe.isDog(fido)        // true
 ```
 
 ## Performance
-Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result.  Here is the bench summary output for tipe@0.1.9 vs is@0.2.6, weighing shared methods equally:  
-
-Bench Summary:
+Tipe aims to be as fast as any pure javascript type checker can be.  For each internal type check, tipe chooses the fastest availble V8 expression to determine the result. To see method-by-method comparisons for yourself, run:
 ```
-benchmarking ... /tipe/bench.js
+node bench
+```
+Here is the bench summary output for tipe@0.1.11 vs is@2.2.0, weighing shared methods equally:
+
+benchmarking /Users/gs/tipe/bench.js
 Please be patient.
 { http_parser: '1.0',
-  node: '0.10.16',
+  node: '0.10.33',
   v8: '3.14.5.9',
   ares: '1.9.0-DEV',
-  uv: '0.10.13',
+  uv: '0.10.29',
   zlib: '1.2.3',
   modules: '11',
-  openssl: '1.0.1e' }
+  openssl: '1.0.1j' }
 Scores: (bigger is better)
 
 tipe
 Raw:
- > 102.7944111776447
- > 103.58565737051792
- > 104.06342913776015
- > 103.27706057596822
- > 103.58565737051792
- > 103.68893320039881
- > 103.17460317460318
- > 101.69491525423729
-Average (mean) 103.233083407706
+ > 118.17279046673286
+ > 119.16583912611718
+ > 119.04761904761905
+ > 118.64406779661017
+ > 118.64406779661017
+ > 118.64406779661017
+ > 119.16583912611718
+ > 118.88111888111888
+Average (mean) 118.79567625469195
 
 is
 Raw:
- > 46.396841066140176
- > 46.48862512363996
- > 46.53465346534654
- > 45.54455445544554
- > 46.48862512363996
- > 46.53465346534654
- > 46.44268774703557
- > 46.16895874263261
-Average (mean) 46.32494989865336
+ > 56.60377358490566
+ > 57.142857142857146
+ > 56.82951146560319
+ > 57.19921104536489
+ > 56.71641791044776
+ > 56.71641791044776
+ > 56.54761904761905
+ > 57.142857142857146
+Average (mean) 56.86233315626283
 
 Winner: tipe
 Compared with next highest (is), it's:
-55.13% faster
-2.23 times as fast
-0.35 order(s) of magnitude faster
-``` 
+52.13% faster
+2.09 times as fast
+0.32 order(s) of magnitude faster
+QUITE A BIT FASTER
 
-To see method-by-method comparisons for yourself, run
-```
-node bench
-```
 
 ## Dogfood
 3meters relies on the public tipe module for our aircandi web service.

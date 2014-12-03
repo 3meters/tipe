@@ -10,7 +10,10 @@
  *  MIT Licensed
  */
 
-var toString = Object.prototype.toString
+/* jshint -W097 */    // disable jshint warning about module global strict
+"use strict";
+
+var toString = Object.prototype.toString;
 
 // Main
 function tipe(v) {
@@ -22,7 +25,7 @@ function tipe(v) {
   if (result) return result;
 
   // Fix the infamous bug in typeof
-  if (null === v) return 'null';
+  if (null === v) return "null";
 
   // Check for custom classes
   if (v.constructor) {
@@ -30,71 +33,83 @@ function tipe(v) {
     if (result) return result;
   }
 
-  // We have some kind of object, but what kind?
+  // We have an object.  Look up its constructor class by parsing
+  // the result of toString on it.  If its class is registered in
+  // the tipeMap return its tipe, otherwise return "object"
   className = toString.call(v).slice(8, -1);
-
-  return tipeMap[className] || 'object';
+  return tipeMap[className] || "object";
 }
 
 
 // Map of value types to their tipes
 var tipeMap = {
-  'undefined': 'undefined',
-  'boolean': 'boolean',
-  'number': 'number',
-  'string': 'string',
-  'function': 'function',
-  'Arguments': 'arguments',
-  'Number': 'number',
-  'String': 'string',
-  'RegExp': 'regexp',
-  'Array': 'array',
-  'Date': 'date',
-  'Error': 'error',
+  "undefined": "undefined",
+  "boolean": "boolean",
+  "number": "number",
+  "string": "string",
+  "function": "function",
+  "Arguments": "arguments",
+  "Number": "number",
+  "String": "string",
+  "RegExp": "regexp",
+  "Array": "array",
+  "Date": "date",
+  "Error": "error",
 };
 
 
 // Handy for determining pass-by-value versus pass-by-reference
 tipe.scalar = tipe.isScalar = function(v) {
   return !(v instanceof Object);
-}
+};
 
 
 // True for positive numbers, strings castable to positive numbers,
-// or the strings 'true' or 'yes'.  Handy for booleans set from
+// or the strings "true" or "yes".  Handy for booleans set from
 // query strings
 tipe.truthy = tipe.isTruthy = function(v) {
-  if ('number' === typeof(v)) return (v > 0);  // negative numbers are false
-  if ('string' !== typeof(v)) return (v);      // fall back to javascript
+  if ("number" === typeof(v)) return (v > 0);  // negative numbers are false
+  if ("string" !== typeof(v)) return (v);      // fall back to javascript
   v = v.toLowerCase();
-  if ('true' === v || 'yes' === v || 'on' === v) return true;
+  if ("true" === v || "yes" === v || "on" === v) return true;
   if (parseInt(v) > 0) return true;
   return false;
-}
+};
+
+
+// Add synonyms for tipe.arguments. arguments is a no-op as a function
+// property, and is illegal in strict mode
+tipe.args = tipe.isArgs = tipe.isArguments = function(v) {
+  return "[object Arguments]" === toString.call(v);
+};
 
 
 // Add a user-specfied tipe to the tipeMap
 // The className must be the name of the constructor
 tipe.add = tipe.addTipe = function(className, tipeName) {
-  if ('null' === className
-      || 'Object' === className
-      || tipeMap[className]) {
+  if ("null" === className ||
+      "Object" === className ||
+      tipeMap[className]) {
     return;  // ddt
   }
   tipeMap[className] = tipeName;
   addMethod(tipeName);
-}
+};
 
 
 // Add two boolean test methods for a type, the type name itself and
 // is<typename>, e.g. tipe.array() and tipe.isArray()
 function addMethod(tipeName) {
   var upperCaseTipeName = tipeName.charAt(0).toUpperCase() + tipeName.slice(1);
-  tipe['is' + upperCaseTipeName] = function(v) {
-    return tipe(v) === tipeName
+  tipe["is" + upperCaseTipeName] = function(v) {
+    return tipe(v) === tipeName;
   };
+
+  // arguemnts is an illegal method name in strict mode
+  if ("arguments" === tipeName) return;
+
   tipe[tipeName] = function(v) {
-    return tipe(v) === tipeName
+    return tipe(v) === tipeName;
   };
 }
 
@@ -104,60 +119,56 @@ function addMethod(tipeName) {
 // This method can be skipped and tipe will still run.
 // For fun run node bench with and without it.
 function addOptimizedMethods() {
-  tipe['undefined'] = tipe.isUndefined = function(v) {
+  tipe["undefined"] = tipe.isUndefined = function(v) {
     return undefined === v;
-  }
+  };
   tipe.defined = tipe.isDefined = function(v) {
     return undefined !== v;
-  }
-  tipe['null'] = tipe.isNull = function(v) {
+  };
+  tipe["null"] = tipe.isNull = function(v) {
     return null === v;
-  }
+  };
   tipe.string = tipe.isString = function(v) {
-    return 'string' === typeof(v);
-  }
+    return "string" === typeof(v);
+  };
   tipe.number = tipe.isNumber = function(v) {
-    return 'number' === typeof(v);
-  }
-  tipe['boolean'] = tipe.isBoolean = function(v) {
-    return 'boolean' === typeof(v);
-  }
-  tipe['function'] = tipe.isFunction = function(v) {
-    return 'function' === typeof(v);
-  }
+    return "number" === typeof(v);
+  };
+  tipe.boolean = tipe.isBoolean = function(v) {
+    return "boolean" === typeof(v);
+  };
+  tipe["function"] = tipe.isFunction = function(v) {
+    return "function" === typeof(v);
+  };
   tipe.array = tipe.isArray = function(v) {
     return Array.isArray(v);
-  }
+  };
   tipe.regexp = tipe.isRegexp = function(v) {
     return (v instanceof RegExp);
-  }
+  };
   tipe.error = tipe.isError = function(v) {
     return (v instanceof Error);
-  }
+  };
   tipe.date = tipe.isDate = function(v) {
     return v instanceof Date;
-  }
+  };
   tipe.object = tipe.isObject = function(v) {
-    return (v && '[object Object]' === toString.call(v)
-        && !(v.constructor && tipeMap[v.constructor.name]));
-  }
-  // arguments is a no-op as a function property
-  tipe.args = tipe.isArgs = tipe.isArguments = function(v) {
-    return '[object Arguments]' === toString.call(v);
-  }
+    return (v && "[object Object]" === toString.call(v) &&
+        !(v.constructor && tipeMap[v.constructor.name]));
+  };
 }
 
 
-// Add submethods on require
+// Add boolean type test methods on require
 (function() {
   for (var key in tipeMap) {
     addMethod(tipeMap[key]);
-  };
-  addMethod('null');
-  addMethod('object');
+  }
+  addMethod("null");
+  addMethod("object");
   addOptimizedMethods(); // can be commented out
-})()
+})();
 
 
-// Export
+/* global module */
 module.exports = tipe;

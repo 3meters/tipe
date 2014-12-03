@@ -1,7 +1,7 @@
 {
   "name": "tipe",
   "version": "0.1.11",
-  "description": "The world's fastest JavaScript type checker for V8 / node.js",
+  "description": "The fastest JavaScript type checker for V8",
   "homepage": "https://github.com/3meters/tipe",
   "keywords": [
     "type",
@@ -21,6 +21,7 @@
     "is": "*",
     "bench": "*"
   },
+  "bugs": "https://github.com/3meters/tipe/issues",
   "main": "tipe.js",
   "scripts": {
     "test": "node test"

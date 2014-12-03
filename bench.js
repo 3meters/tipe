@@ -11,13 +11,16 @@
  *   Improvements welcome.
  */
 
+/* jshint asi: true */  // disable jshint warning about semicolons
+
 
 var bench = require('bench')    // https://github.com/isaacs/node-bench
 var is = require('is')          // https://github.com/enricomarino/is
 var tipe = require('./tipe')
 var sample = require('./test').sample
 var methods = Object.keys(sample)
-var details = true              // benchmark each method separately
+var testMethod = null           // default null, set to methodName to benchmark a single method
+var details = true              // default true, set to false to benchmark only a summary
 
 
 // Set higher for slower, more accurate tests
@@ -60,7 +63,7 @@ function test(lib, method) {
  * (https://github.com/isaacs/node-bench/blob/master/lib/bench.js#L35)
  * perhaps to minimize benchmark moving parts.
  */
-function compareMethod(i) {
+function compareMethods(i) {
 
   if (!(i--)) return compareSummary()  // done, break recursion
 
@@ -71,10 +74,20 @@ function compareMethod(i) {
 
   exports.done = function(rawResults) {
     console.log(rawResults)
-    compareMethod(i) // recurse
+    compareMethods(i) // recurse
   }
 
   bench.runMain() // calls exports.done when finished
+}
+
+
+// Compare a single method
+function compareMethod(method) {
+  console.log('\n\nMethod: ' + method + '\n==========\n')
+  exports.done = undefined
+  exports.compare['is.' + method] = function() { test(is, method)}
+  exports.compare['tipe.' + method] = function() { test(tipe, method)}
+  bench.runMain()
 }
 
 
@@ -82,7 +95,6 @@ function compareMethod(i) {
 function compareSummary() {
   console.log('\n\nSummary\n==========\n')
   exports.done = undefined  // use default bench output
-  exports.compare = {}
   exports.compare.is   = function() { test(is)   }
   exports.compare.tipe = function() { test(tipe) }
   bench.runMain()
@@ -90,5 +102,7 @@ function compareSummary() {
 
 
 // Run
-if (details) compareMethod(methods.length)
+exports.compare = {}
+if (details) compareMethods(methods.length)
+else if (testMethod) compareMethod(testMethod)
 else compareSummary()
