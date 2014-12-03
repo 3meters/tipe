@@ -1,6 +1,6 @@
 ## Tipe
 
-The world's fastest javascript type checker for V8
+The fastest JavaScript type checker for V8
 
 [![NPM version](https://badge.fury.io/js/tipe.png)](http://badge.fury.io/js/tipe)
 [![Build Status](https://secure.travis-ci.org/3meters/tipe.png)](http://travis-ci.org/3meters/tipe)
