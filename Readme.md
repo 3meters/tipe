@@ -4,10 +4,11 @@ The fastest JavaScript type checker for V8
 
 [![NPM version](https://badge.fury.io/js/tipe.png)](http://badge.fury.io/js/tipe)
 [![Build Status](https://secure.travis-ci.org/3meters/tipe.png)](http://travis-ci.org/3meters/tipe)
+[![Coverage Status](https://coveralls.io/repos/3meters/tipe/badge.png)](https://coveralls.io/r/3meters/tipe?branch=master)
 
 ## Why tipe?
 
-Javasript's native typeof is famously broken. Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.
+JavaScript's native typeof is famously broken. Many folks turn to the excellent is library for help: https://github.com/enricomarino/is.
 
 Not content with is?  You should probably write your own type checker. Still not content?  Tipe has been hand-tuned to provide the fastest internal test possible for any type expression on the V8 Javascript engine.  This makes it particularly well suited for highly-scalable node.js applications.
 

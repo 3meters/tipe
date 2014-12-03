@@ -19,7 +19,8 @@
   },
   "devDependencies": {
     "is": "*",
-    "bench": "*"
+    "bench": "*",
+    "coveralls": "*"
   },
   "bugs": "https://github.com/3meters/tipe/issues",
   "main": "tipe.js",

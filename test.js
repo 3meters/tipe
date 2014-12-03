@@ -96,6 +96,10 @@ for (var method in sample) {
   }
 }
 
+// Test defined
+assert(tipe.defined(1))
+assert(!tipe.defined())
+
 // Test truthy
 assert(tipe.truthy(1))
 assert(tipe.truthy(45.6))
@@ -134,5 +138,10 @@ assert(tipe.isDog(rover))
 assert('dog' === tipe(rover))
 assert(!tipe.object(rover))
 assert(!tipe.dog({}))
+
+// Cannot redefine built-in tipes
+tipe.addTipe('Number', 'string')
+assert(tipe.string('foo'))
+assert(tipe.number(1))
 
 console.log(assertCount + ' tipe tests pass')
