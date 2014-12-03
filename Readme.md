@@ -64,6 +64,7 @@ node bench
 ```
 Here is the bench summary output for tipe@0.1.11 vs is@2.2.0, weighing shared methods equally:
 
+```
 benchmarking /Users/gs/tipe/bench.js
 Please be patient.
 { http_parser: '1.0',
@@ -106,7 +107,7 @@ Compared with next highest (is), it's:
 2.09 times as fast
 0.32 order(s) of magnitude faster
 QUITE A BIT FASTER
-
+```
 
 ## Dogfood
 3meters relies on the public tipe module for our aircandi web service.

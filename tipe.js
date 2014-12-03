@@ -10,10 +10,12 @@
  *  MIT Licensed
  */
 
+
 /* jshint -W097 */    // disable jshint warning about module global strict
 "use strict";
 
 var toString = Object.prototype.toString;
+
 
 // Main
 function tipe(v) {
