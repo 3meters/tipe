@@ -1,7 +1,8 @@
 /**
  * tipe tests
- * *
+ *
  * To run:  node test
+ *
  */
 
 /* jshint asi: true */
