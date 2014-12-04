@@ -20,12 +20,17 @@
   "devDependencies": {
     "is": "*",
     "bench": "*",
+    "jshint": "*",
+    "istanbul": "*",
     "coveralls": "*"
   },
   "bugs": "https://github.com/3meters/tipe/issues",
   "main": "tipe.js",
   "scripts": {
-    "test": "node test"
+    "lint": "jshint *.js",
+    "test": "node test",
+    "cover": "istanubl cover test.js",
+    "coveralls": "istanbul cover --report lcovonly test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "license": "MIT",
   "readmeFilename": "Readme.md"
