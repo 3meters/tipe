@@ -1,6 +1,6 @@
 {
   "name": "tipe",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "The fastest JavaScript type checker for V8",
   "homepage": "https://github.com/3meters/tipe",
   "keywords": [
@@ -29,8 +29,8 @@
   "scripts": {
     "lint": "jshint *.js",
     "test": "node test",
-    "cover": "istanubl cover test.js",
-    "coveralls": "istanbul cover ./test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "cover": "istanbul cover test.js",
+    "coveralls": "istanbul cover ./test.js && cat ./coverage/lcov.info | coveralls"
   },
   "license": "MIT",
   "readmeFilename": "Readme.md"

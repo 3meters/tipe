@@ -63,8 +63,7 @@ Tipe aims to be as fast as any pure javascript type checker can be.  For each in
 ```
 node bench
 ```
-Here is the bench summary output for tipe@0.1.11 vs is@2.2.0, weighing shared methods equally:
-
+Here is the bench summary output for tipe@0.1.12 vs is@2.2.0, weighing shared methods equally:
 ```
 benchmarking /Users/gs/tipe/bench.js
 Please be patient.
@@ -80,33 +79,33 @@ Scores: (bigger is better)
 
 tipe
 Raw:
- > 118.17279046673286
- > 119.16583912611718
- > 119.04761904761905
- > 118.64406779661017
- > 118.64406779661017
- > 118.64406779661017
- > 119.16583912611718
- > 118.88111888111888
-Average (mean) 118.79567625469195
+ > 126.62013958125623
+ > 125.62313060817547
+ > 126.74650698602794
+ > 126.74650698602794
+ > 126.49402390438247
+ > 127.49003984063745
+ > 126.87312687312688
+ > 126.74650698602794
+Average (mean) 126.6674977207078
 
 is
 Raw:
- > 56.60377358490566
- > 57.142857142857146
- > 56.82951146560319
- > 57.19921104536489
- > 56.71641791044776
- > 56.71641791044776
- > 56.54761904761905
- > 57.142857142857146
-Average (mean) 56.86233315626283
+ > 55.94405594405595
+ > 55.83250249252243
+ > 55.99214145383104
+ > 55.83250249252243
+ > 56.32411067193676
+ > 56.26850937808489
+ > 56.21301775147929
+ > 56.10236220472441
+Average (mean) 56.063650298644646
 
 Winner: tipe
 Compared with next highest (is), it's:
-52.13% faster
-2.09 times as fast
-0.32 order(s) of magnitude faster
+55.74% faster
+2.26 times as fast
+0.35 order(s) of magnitude faster
 QUITE A BIT FASTER
 ```
 
